@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rudraksha InfoTech - Python Programming Course</title>
+  <style>
+    /* ==== Variables ==== */
+    :root{
+      --bg1:#0f0c29;
+      --bg2:#302b63;
+      --accent:#00bcd4;
+      --card:rgba(255,255,255,0.06);
+      --glass:rgba(255,255,255,0.05);
+      --muted:rgba(255,255,255,0.75);
+      --hover-shadow:0 12px 28px rgba(0,0,0,0.6);
+    }
+
+    /* ==== Reset ==== */
+    *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins', sans-serif;}
+    body{
+      min-height:100vh;
+      background:linear-gradient(135deg,var(--bg1),var(--bg2));
+      color:#fff;
+      padding:28px;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* ==== Header ==== */
+    header{
+      max-width:1200px;
+      margin:0 auto 32px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .logo{
+      width:60px;height:60px;border-radius:12px;
+      background:linear-gradient(135deg,#00ffd5,#00bcd4);
+      display:flex;align-items:center;justify-content:center;color:#042;
+      font-weight:800;font-size:20px;box-shadow:0 6px 20px rgba(0,0,0,0.45);
+      transition:transform .3s ease;
+    }
+    .logo:hover{transform:rotate(12deg) scale(1.05);}
+    .brand h1{font-size:22px;letter-spacing:1px;}
+    .brand p{font-size:12px;color:rgba(255,255,255,0.8);margin-top:3px;}
+
+    header div.right{color:var(--muted);font-size:13px;}
+
+    /* ==== Controls ==== */
+    .controls{
+      max-width:1200px;
+      margin:0 auto 32px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+    .filters{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .filter-btn{
+      padding:8px 16px;
+      border-radius:12px;
+      background:var(--glass);
+      border:1px solid rgba(255,255,255,0.08);
+      cursor:pointer;
+      font-weight:600;
+      font-size:14px;
+      color:var(--muted);
+      transition:all .25s ease;
+    }
+    .filter-btn.active{
+      background:linear-gradient(90deg, rgba(0,188,212,0.16), rgba(0,188,212,0.08));
+      color:#eaffff;
+      box-shadow:0 6px 20px rgba(0,188,212,0.1);
+      transform:translateY(-2px);
+    }
+
+    .search-wrap{
+      display:flex;
+      flex:1;
+      justify-content:flex-end;
+      min-width:260px;
+    }
+    .search{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      width:100%;
+      max-width:420px;
+      padding:8px 12px;
+      border-radius:12px;
+      background:var(--glass);
+      border:1px solid rgba(255,255,255,0.08);
+      transition:all .3s ease;
+    }
+    .search:hover{background:rgba(255,255,255,0.08);}
+    .search input{
+      width:100%;
+      border:none;
+      background:transparent;
+      color:#fff;
+      outline:none;
+      font-size:14px;
+    }
+    .search .hint{font-size:13px;color:rgba(255,255,255,0.6);}
+
+    /* ==== Video Grid ==== */
+    .container{max-width:1200px;margin:0 auto;}
+    .video-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:24px;
+    }
+
+    .card{
+      background:var(--card);
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 6px 20px rgba(0,0,0,0.5);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-height:280px;
+      transition:transform .3s ease,box-shadow .3s ease;
+    }
+    .card:hover{transform:translateY(-6px);box-shadow:var(--hover-shadow);}
+    .video-wrap{
+      width:100%;
+      min-height:180px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:12px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      overflow:hidden;
+    }
+    .video-wrap iframe{width:100%;height:180px;border:0;display:block;}
+    .placeholder{
+      display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;color:rgba(255,255,255,0.8);
+    }
+    .placeholder .dot{
+      width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,0.04);
+      display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;
+    }
+
+    .title{font-size:16px;font-weight:600;color:#e9ffff;}
+    .meta{font-size:13px;color:rgba(255,255,255,0.65);}
+    .tags{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap;}
+    .tag{
+      font-size:12px;font-weight:600;padding:5px 10px;
+      border-radius:10px;background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.03);
+      color:rgba(255,255,255,0.85);
+      transition:all .3s ease;
+    }
+    .tag.dart{background: rgba(115,102,255,0.12); color:#e7e2ff;}
+    .tag.flutter{background: rgba(0,188,212,0.12); color:#e8fcff;}
+    .tag.other{background: rgba(255,193,7,0.08); color:#fff6d6;}
+
+    /* ==== Footer ==== */
+    footer{
+      max-width:1200px;
+      margin:40px auto 0;
+      text-align:center;
+      color:rgba(255,255,255,0.7);
+      font-size:13px;
+      border-top:1px solid rgba(255,255,255,0.1);
+      padding:18px;
+      border-radius:10px;
+    }
+
+    /* ==== Responsive ==== */
+    @media(max-width:520px){
+      header{flex-direction:column;align-items:flex-start;}
+      .search-wrap{justify-content:flex-start;width:100%;}
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">CM</div>
+      <div>
+        <h1>Codemantra</h1>
+        <p>Python Programming — Full Course (36 videos)</p>
+      </div>
+    </div>
+    <div class="right">© 2025 Rudraksha InfoTech</div>
+  </header>
+
+  <div class="controls container">
+    <div class="filters" role="tablist" aria-label="Filters">
+      <button class="filter-btn" data-filter="all">All</button>
+      <button class="filter-btn active" data-filter="flutter">🧾 Assignment</button>
+    </div>
+    <div class="search-wrap">
+      <div class="search">
+        <input id="searchInput" type="search" placeholder="Search video title..." aria-label="Search videos" />
+        <div class="hint">Press Enter</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <section id="grid" class="video-grid" aria-live="polite">
+      <!-- JS will inject cards here -->
+    </section>
+  </main>
+
+  <footer>Rudraksha Infotech | Python Programming </footer>
+
+  <script>
+   const videos = [
+      {id:1, title:"Introduction to Python", src:"https://drive.google.com/file/d/12-oQEbSuz8CySEmZ-VZQE1vc3K9U1XsL/view?usp=sharing", tag:"All"},
+      {id:2, title:"Installing Python & Pycharm", src:"https://drive.google.com/file/d/16e4QBOINicNuOTt00r2TM_yGD9PeX6r9/view?usp=drive_link", tag:"All"},
+      {id:3, title:"Data Types In Python", src:"https://drive.google.com/file/d/15ThqWvrMSoObm4e5YCQDGJmeVC-7Ewtu/view?usp=drive_link", tag:"All"},
+      {id:4, title:"Comments In Python", src:"https://drive.google.com/file/d/18BRYJ4nVcs9hl05o408mmpnf_qmg3hmL/view?usp=drive_link", tag:"All"},
+      {id:5, title:"Operators In Python", src:"https://drive.google.com/file/d/1ALydLvGmV1UqsQPFWegcMvvGT2UwsEbe/view?usp=drive_link", tag:"All"},
+      {id:6, title:"🧾ASSIGNMENT NO.1", src:"https://drive.google.com/file/d/1KMUS7zfjwCwEknWVGw63wHjSgvikDZqn/view?usp=drive_link", tag:"Assignment"},
+      {id:7, title:"F string in Python", src:"https://drive.google.com/file/d/1D3SdBCwU-Zgm0gHaLO_Tesaci5RoV6qu/view?usp=drive_link", tag:"All"},
+      {id:8, title:"Input function in Python", src:"https://drive.google.com/file/d/1K_eu6oLVW5vn1GIkRAb0TSNPSwKBKbDH/view?usp=drive_link", tag:"All"},
+      {id:9, title:"Typecasting in Python", src:"https://drive.google.com/file/d/1NpO98Au8a26onbw6szrbE5ktpr_qfvt2/view?usp=drive_link", tag:"All"},
+      {id:10, title:"List In Python", src:"https://drive.google.com/file/d/1cvrMFEYvmXwWQdyCmz-UYPPLut6sAF1R/view?usp=drive_link", tag:"All"},
+      {id:11, title:"List function in Python", src:"https://drive.google.com/file/d/1euuz_fHrFkz2cz_kO5FUax2R4GmVy0LN/view?usp=drive_link", tag:"All"},
+      {id:12, title:"Dictionary in Python ", src:"https://drive.google.com/file/d/1c_2Zu7KagUfav_Yu8GnPXOylWtonu-Pk/view?usp=drive_link", tag:"All"},
+      {id:13, title:"🧾ASSIGNMENT 1 SOLUTION ", src:"https://drive.google.com/file/d/1Y6JSMUM3EKB55Eg58fHFKJQ0JDa-Z2Rv/view?usp=drive_link", tag:"Assignment"},
+      {id:14, title:"Set In Python", src:"https://drive.google.com/file/d/1Z41bEAq9GITjdx8PM5Q9LZFg41R8x3-5/view?usp=drive_link", tag:"All"},
+      {id:15, title:"Tuple in Python ", src:"https://drive.google.com/file/d/1bS2juqL0m8XbHZObKl3JpRkcOSGkVJUw/view?usp=drive_link", tag:"All"},
+      {id:16, title:"if else in Python ", src:"https://drive.google.com/file/d/1bbycWHqGo6CvWZTcTbSeLxYaXU6Azunt/view?usp=drive_link", tag:"All"},
+      {id:17, title:"🧾ASSIGNMENT NO.2 ", src:"https://drive.google.com/file/d/1PfNBGvouBgQlGbYdtzO4PFX8Rz1AvSo5/view?usp=drive_link", tag:"Assignment"},
+      {id:18, title:"🧾ASSIGNMENT NO.3", src:"https://drive.google.com/file/d/1afTNcA3icKWCvFYKfinlbIRSgo7TRHas/view?usp=drive_link", tag:"Assignment"},
+      {id:19, title:"🧾ASSIGNMENT NO.2 Solution", src:"https://drive.google.com/file/d/1C3KpnaxvvYO-jkKE_7NKQZ8txohK0cLC/view?usp=drive_link", tag:"Assignment"},
+      {id:20, title:"🧾ASSIGNMENT NO.3 Solution", src:"https://drive.google.com/file/d/1Z0rOlUBE_9UPo68GMFHERnAQXwTm7MDE/view?usp=drive_link", tag:"Assignment"},
+      {id:21, title:"Upcoimg", src:null, tag:"All"},
+      
+    ];
+
+
+    const grid = document.getElementById('grid');
+    const searchInput = document.getElementById('searchInput');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+
+    function createCard(v){
+      const card = document.createElement('article');
+      card.className='card';
+      card.dataset.tag=v.tag;
+      card.dataset.title=v.title.toLowerCase();
+
+      const videoWrap=document.createElement('div');
+      videoWrap.className='video-wrap';
+      if(v.src){
+        const iframe=document.createElement('iframe');
+        iframe.src=v.src;
+        iframe.allow='autoplay; encrypted-media; picture-in-picture';
+        iframe.loading='lazy';
+        iframe.referrerPolicy='no-referrer';
+        videoWrap.appendChild(iframe);
+      } else {
+        const ph=document.createElement('div');
+        ph.className='placeholder';
+        ph.innerHTML='<div class="dot">▶</div><div style="font-weight:700">Coming soon</div><div style="font-size:13px;color:rgba(255,255,255,0.6)">Video will be available soon</div>';
+        videoWrap.appendChild(ph);
+      }
+
+      const title=document.createElement('div');
+      title.className='title';
+      title.textContent=`${v.id}. ${v.title}`;
+      const meta=document.createElement('div');
+      meta.className='meta';
+      meta.textContent=`${v.tag.toUpperCase()} • Lecture ${v.id}`;
+      const tags=document.createElement('div');
+      tags.className='tags';
+      const tagEl=document.createElement('div');
+      tagEl.className=`tag ${v.tag}`;
+      tagEl.textContent=v.tag.charAt(0).toUpperCase()+v.tag.slice(1);
+      tags.appendChild(tagEl);
+
+      card.append(videoWrap,title,meta,tags);
+      return card;
+    }
+
+    function renderList(list){
+      grid.innerHTML='';
+      if(list.length===0){grid.innerHTML='<div style="grid-column:1/-1;padding:28px;text-align:center;color:rgba(255,255,255,0.75);">No videos found.</div>';return;}
+      const frag=document.createDocumentFragment();
+      list.forEach(v=>frag.appendChild(createCard(v)));
+      grid.appendChild(frag);
+    }
+
+    function applyFilter(filter='flutter', q=''){
+      const ql=(q||'').trim().toLowerCase();
+      const list=videos.filter(v=>{
+        if(filter!=='all'&&v.tag!==filter) return false;
+        if(ql&&!v.title.toLowerCase().includes(ql)) return false;
+        return true;
+      });
+      renderList(list);
+    }
+
+    filterButtons.forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        filterButtons.forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilter(btn.dataset.filter,searchInput.value);
+      });
+    });
+
+    searchInput.addEventListener('keydown',e=>{
+      if(e.key==='Enter'){
+        const active=document.querySelector('.filter-btn.active');
+        applyFilter(active?active.dataset.filter:'all',searchInput.value);
+      }
+    });
+    searchInput.addEventListener('input',e=>{
+      const active=document.querySelector('.filter-btn.active');
+      applyFilter(active?active.dataset.filter:'all',searchInput.value);
+    });
+
+    document.addEventListener('DOMContentLoaded',()=>{
+      filterButtons.forEach(b=>b.classList.toggle('active',b.dataset.filter==='flutter'));
+      applyFilter('flutter','');
+    });
+  </script>
+</body>
+</html>
