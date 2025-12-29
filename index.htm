@@ -205,7 +205,7 @@
 
   <div class="controls container">
     <div class="filters" role="tablist" aria-label="Filters">
-      <button class="filter-btn" data-filter="all">🧾 Assignment</button>All
+      <button class="filter-btn" data-filter="all">🧾 Assignment</button>
       <button class="filter-btn active" data-filter="flutter">All</button>
     </div>
     <div class="search-wrap">
@@ -302,7 +302,7 @@
       grid.appendChild(frag);
     }
 
-    function applyFilter(filter='flutter', q=''){
+    function applyFilter(filter='All', q=''){
       const ql=(q||'').trim().toLowerCase();
       const list=videos.filter(v=>{
         if(filter!=='all'&&v.tag!==filter) return false;
@@ -332,8 +332,8 @@
     });
 
     document.addEventListener('DOMContentLoaded',()=>{
-      filterButtons.forEach(b=>b.classList.toggle('active',b.dataset.filter==='flutter'));
-      applyFilter('flutter','');
+      filterButtons.forEach(b=>b.classList.toggle('active',b.dataset.filter==='All'));
+      applyFilter('All','');
     });
   </script>
 </body>
