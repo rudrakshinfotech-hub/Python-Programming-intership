@@ -204,10 +204,12 @@
   </header>
 
   <div class="controls container">
-    <div class="filters" role="tablist" aria-label="Filters">
-      <button class="filter-btn" data-filter="all">🧾 Assignment</button>
-      <button class="filter-btn active" data-filter="flutter">All</button>
-    </div>
+    
+     <div class="filters" role="tablist" aria-label="Filters">
+  <button class="filter-btn active" data-filter="All">All</button>
+  <button class="filter-btn" data-filter="Assignment">🧾 Assignment</button>
+</div>
+</div>
     <div class="search-wrap">
       <div class="search">
         <input id="searchInput" type="search" placeholder="Search video title..." aria-label="Search videos" />
@@ -304,14 +306,15 @@
     }
 
     function applyFilter(filter='All', q=''){
-      const ql=(q||'').trim().toLowerCase();
-      const list=videos.filter(v=>{
-        if(filter!=='all'&&v.tag!==filter) return false;
-        if(ql&&!v.title.toLowerCase().includes(ql)) return false;
-        return true;
-      });
-      renderList(list);
-    }
+  const ql = (q || '').trim().toLowerCase();
+  const list = videos.filter(v=>{
+    if(filter !== 'All' && v.tag !== filter) return false;
+    if(ql && !v.title.toLowerCase().includes(ql)) return false;
+    return true;
+  });
+  renderList(list);
+}
+
 
     filterButtons.forEach(btn=>{
       btn.addEventListener('click',()=>{
